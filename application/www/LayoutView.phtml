@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Climbing For Life</title>
+
+        <!--Normalize-->
+        <link rel="stylesheet" href="<?= $wwwUrl ?>/css/normalize-3.0.3.min.css">
+
+        <!-- Boostrap 3.3.7 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!--Font Awesome html-->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+        <!--Jquery-->
+        <script src="jquery-3.2.1.min.js"></script>
+        <script src="<?= $wwwUrl ?>/js/parallax.min.js"></script>
+ 
+
+        <!-- Css Perso -->
+        <link rel="shortcut icon" type="image/x-icon" href="<?= $wwwUrl ?>/images/Favicon.png" />
+        <link rel="stylesheet" href="<?= $wwwUrl ?>/css/style.css">
+
+    </head>
+
+    <body style="background-image: url('<?= $wwwUrl ?>/images/fond.png');">
+        <header id="header">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="<?= $requestUrl ?>">Climbing For Life</a>
+                        <div class="burger">
+                            <svg viewBox="0 0 50 30" style="width:40px;">
+                                <polygon points="0,0 50,0 50,2 0,2" fill="#aaa"></polygon>
+                                <polygon points="0,14 50,14 50,16 0,16" fill="#aaa"></polygon>
+                                <polygon points="0,28 50,28 50,30 0,30" fill="#aaa"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-nav">
+
+                        <?php $userSession = new UserSession(); ?>
+
+                        <li class="active"><a href="<?= $requestUrl ?>">Accueil</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lieux
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?= $requestUrl; ?>/places">Places</a></li>
+                            </ul> 
+                        </li>
+
+                        <?php   if($userSession->isAuthenticated()) : ?>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Espace Personnel
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?= $requestUrl; ?>/user/posts">Crée un Article</a></li>
+                                    <li><a href="<?= $requestUrl; ?>/user/personalposts">Voir mes Article(s)</a></li>
+                                </ul> 
+                            </li>
+                        <?php  endif; ?>
+                        <li>
+                            <form method="GET">
+                                <input type="search" name="r" placeholder="Recherche..."/>
+                                <input type="submit" value=""><i class="fa fa-search"></i>
+                            </form>
+                        </li>
+                    </ul>
+                    <div class="account">
+                        <a href="<?= $requestUrl; ?>/user/personalposts">
+
+                            <?php if ($userSession->isAuthenticated()) : ?>
+                                <p class="welcome"><strong> <?= ''.$userSession->getFullName();?></strong></p>
+                            <?php endif ?>
+
+                        </a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <?php if(!$userSession->isAuthenticated()) : ?>
+                            <li><a href="<?= $requestUrl; ?>/user"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                            <li><a href="<?= $requestUrl; ?>/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <?php else : ?>   
+
+                            <li>
+                                <a href="<?= $requestUrl; ?>/user/logout"><span class="glyphicon glyphicon-log-in"></span>
+                                    Deconnexion
+                                </a>
+                            </li>
+                        <?php endif?>
+                    </ul> 
+                </div>
+            </nav> 
+        </header>
+        <div id="content-wrapper">
+            <br>
+            <main>          
+
+                <?php if (!empty($aMessages) && sizeof($aMessages) > 0) :
+
+                foreach ($aMessages as $sMessage) : ?>
+                        <aside id="notice" class="notice alert alert-success"><p><?= htmlspecialchars($sMessage) ?></p></aside>
+                    <?php endforeach ?>
+
+                <?php endif ?> 
+
+                <!-- Affichage du template lié à la vue -->
+                <?php include $this->viewData['template']; ?>
+
+            </main>
+        </div>
+
+        <!-- Pied de page commun -->
+        <footer id="footer">
+            <div class="scrollTop"><img src="<?= $wwwUrl ?>/images/double-arrow.png"></div>
+        </footer>
+
+        <!-- Code principal JavaScript de l'application -->
+
+        <script src="<?= $wwwUrl ?>/js/main.js"></script>
+        <script>
+
+            var scene = document.getElementById('scene');
+            var parallax = new Parallax(scene);
+
+        </script> 
+    </body>
+</html>

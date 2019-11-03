@@ -1,0 +1,28 @@
+<h1 class="subTitle">Crée un article</h1>
+<?php if (!empty($sError)) : ?>
+
+    <p class="error-message"><?= htmlspecialchars($sError)?></p>
+
+<?php endif; ?>
+
+<form class="generic-form" action="" method="POST">
+
+    <div class="form-group">
+        <label for="title" class="col-2 col-form-label">
+            Titre
+        </label>
+
+        <div class="col-10">
+            <input class="form-control" name="title" type="text" value="<?= (!empty($title) ? htmlspecialchars($title) : '') ?>" id="title">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+    </div>
+    <div class="infos">
+        <input class="btn sec btn-primary" type="submit" value="Soumettre">
+        <a class="btn btn-secondary" href="/sitepro/index.php">Annuler</a>
+    </div>
+
+</form>

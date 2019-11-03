@@ -1,0 +1,29 @@
+<section class="read">      
+    <article>
+    	<h2 class="subTitle">Article : <?= htmlspecialchars($post['Title']) ?></h2> 
+        <table>
+            <tr> 
+                <td>
+                	<strong> <?= htmlspecialchars($post['Description']) ?> </strong> 
+                </td>
+			</tr>
+			<tr>
+				<td>
+                	<small><?= htmlspecialchars($post['CreationDate']) ?></small>
+                </td>
+            </tr>
+            <?php if($userSession->isAdmin()) :    ?>
+            <tr>
+            	<td>
+	            <button type="button" class="delete " data-article-id="<?= htmlspecialchars($post['Id']);?>">
+	                <i class="fa fa-trash"></i>
+	            </button>
+	            </td>
+	        </tr>
+        <?php endif; ?>
+        </table>
+
+        
+
+    </article> 
+</section>

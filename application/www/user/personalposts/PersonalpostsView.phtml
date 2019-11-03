@@ -1,0 +1,46 @@
+<h1 class="subTitle">Mon espace personnel</h1>
+<h2>Article<?= (count($posts)>1) ? 's' : ''; ?></h2>
+
+<?php
+if (!$posts) :
+    echo "<div class='article-none'><span>Vous n'avez pas d'article actuellement</span></div>";
+else : 
+?>  
+
+    <section>
+
+        <?php foreach($posts as $line => $cols) : ?>
+
+            <article>
+                <div class="personnal-article">
+                	<h3><?= htmlspecialchars($cols['Title']) ?></h3> 
+                    <table>
+                        <tr> 
+                            <td>
+                            	<strong> <?= htmlspecialchars($cols['Description']) ?> </strong>
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+                            	<small><?= htmlspecialchars($cols['CreationDate']) ?></small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            	<button type="button" class="delete " data-article-id="<?= htmlspecialchars($cols['Id']);?>">
+                            		<i class="fa fa-trash"></i>
+                            	</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>            
+            </article> 
+
+        <?php endforeach; ?>
+    </section>
+    
+<?php endif;
+
+    for($i=1;$i<=$totalPages;$i++){  
+        echo '<a href="?page='.$i.'">'.$i.'</a>';
+    }

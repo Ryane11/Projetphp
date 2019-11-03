@@ -1,0 +1,36 @@
+<article>    
+    <h1 class="subTitle">Une envie de tater du caillou ?</h1>
+    <h2>Notre sélection de Lieu<?= (count($Places)>1) ? 'x' : ''; ?></h2>
+
+    <?php
+    if (!$Places) :
+        echo "<div class='article-none'><span>il n'y a pas de lieux actuellement</span></div>";
+
+    else :
+        foreach($Places as $line => $cols) : 
+    ?>
+
+            <section class="place">
+                <article>
+                    <ul>
+                        <li>
+                            <h3><strong><?= htmlspecialchars($cols['Name']) ?></strong></h3>
+
+                            <img src="<?= $wwwUrl ?>/images/places/<?= htmlspecialchars($cols['img']) ?>">
+                            <p>Lieux :<strong><?= htmlspecialchars($cols['Adress']) ?></strong></p>
+                            <p>Telephone Mobile :<strong> +33<?= htmlspecialchars($cols['Phone']) ?></strong></p>
+                            <p>Telephone Fixe :<strong> 01<?= htmlspecialchars($cols['MobilPhone']) ?></strong></p>
+                            <div class="central">
+                                <a href="http://karma.ffme.fr/">Voir le site</a>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+
+
+    <?php   
+        endforeach; 
+    endif;
+    ?>
+</article>

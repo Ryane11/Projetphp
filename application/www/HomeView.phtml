@@ -1,0 +1,64 @@
+<section class="home">
+    <div class="wrapTitle">
+        <h1 class="title">Climbing<br>For Life</h1>
+    </div>
+    <div id="container" class="container">
+        <div id="scene" data-hover-only="true" data-relative-input="true" class="scene border">
+            <div data-depth="0.30"><img src="<?= $wwwUrl ?>/images/font1.jpg"></div>
+            <img id="firstLayer" src="<?= $wwwUrl ?>/images/parallaxfond.png">
+        </div>
+    </div> 
+    <h2>Article<?= (count($posts)>1) ? 's' : ''; ?></h2>
+
+    <?php
+    if (!$posts) :
+        echo "<div class='article-none'><span>il n'y a pas d'article actuellement</span></div>";
+    else :
+    ?>    
+        <article class="post">
+            <ul>    
+                <?php foreach($posts as $line => $cols) : ?>
+
+                    <li>
+                        <small class="date"><?= htmlspecialchars(date('d/m/Y',strtotime($cols['CreationDate'])))?></small>
+                        <div class="visuel-articles">
+                            <h3><?= htmlspecialchars($cols['Title']) ?></h3> 
+                            <div class="eyes">
+                                <button type="button" class="content_eyes" data-article-id="<?= htmlspecialchars($cols['Id']);?>">
+                                    <i class="fa fa-eye-slash"></i></button>
+                                <div><?= htmlspecialchars(tronquer($cols['Description'],120)) ?></div>
+                            </div>
+                            <div class="link">
+                                <article class="infos">
+                            <?php if($userSession->isAuthenticated()) : ?><a href="<?= $requestUrl; ?>/user/read?id_post=<?= $cols['Id']; ?>">Lire L'article</a><?php endif; ?>
+                            </article>
+
+                            <?php if($userSession->isAdmin()) :    ?>
+                            <button type="button" class="delete" data-article-id="<?= htmlspecialchars($cols['Id']);?>">
+                                    <i class="fa fa-trash"></i>
+                            </button>
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+                </li>
+
+            <?php endforeach; ?>                  
+        </ul>
+    </article>
+    
+    <?php  endif; ?>
+</section>
+<?php
+
+for($i=1;$i<=$totalPages;$i++){
+    
+    if($i == $currentPage)
+    {
+        echo $i.' ';    
+    }
+    else
+    {
+       echo '<a class="pages" href="?page='.$i.'">'.$i.'</a>';  
+    }
+}
